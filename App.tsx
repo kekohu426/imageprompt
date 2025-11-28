@@ -172,23 +172,29 @@ const App: React.FC = () => {
 
         <main className="mt-6">
           <div className="masonry-grid">
-              {filteredPrompts.map((item, index) => (
-                <div
-                  key={`${item.title}-${index}`}
-                  onClick={() => setSelectedPrompt(item)}
-                  onMouseEnter={() => setSelectedPrompt(item)}
-                  className="break-inside-avoid mb-6 bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-all cursor-pointer group hover:shadow-xl hover:shadow-yellow-500/5 hover:-translate-y-1 relative"
-                >
-                <div className="relative aspect-auto bg-slate-900 border-2 border-slate-700 rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
+            {filteredPrompts.map((item, index) => (
+              <div
+                key={`${item.title}-${index}`}
+                className="break-inside-avoid mb-6 bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-all group hover:shadow-xl hover:shadow-yellow-500/5 hover:-translate-y-1 relative"
+              >
+                <div className="flex items-center justify-between px-3 py-2 bg-slate-900 border-b border-slate-800">
+                  <span className="text-sm font-semibold text-slate-100 whitespace-nowrap truncate">{item.title}</span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPrompt(item);
+                    }}
+                    className="text-xs px-3 py-1 rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:border-yellow-400 hover:text-yellow-300 transition-colors"
+                  >
+                    查看详情
+                  </button>
+                </div>
+                <div className="relative aspect-auto bg-slate-900 border-2 border-slate-700 rounded-b-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
                   <ImageWithFallback
                     src={item.preview}
                     alt={item.title}
                     className="w-full h-auto object-cover min-h-[150px]"
                   />
-
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-2 bg-slate-950/80 backdrop-blur border border-slate-700 rounded-full text-sm font-semibold text-slate-100 shadow">
-                    {item.title}
-                  </div>
 
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                     <div className="w-full">
@@ -209,7 +215,6 @@ const App: React.FC = () => {
                     </span>
                   </div>
                 </div>
-                <div className="p-3" />
               </div>
             ))}
           </div>
