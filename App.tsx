@@ -55,10 +55,20 @@ const App: React.FC = () => {
   }, [allPrompts]);
 
   const filteredPrompts = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
     return allPrompts.filter((item) => {
+      const titleText = (item.title || '').toLowerCase();
+      const promptText = (item.prompt || '').toLowerCase();
+      const categoryText = (item.category || '').toLowerCase();
+      const sourceText = (item.source?.name || '').toLowerCase();
+      const modeText = (item.mode || '').toLowerCase();
       const matchesSearch =
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.prompt.toLowerCase().includes(searchQuery.toLowerCase());
+        !q ||
+        titleText.includes(q) ||
+        promptText.includes(q) ||
+        categoryText.includes(q) ||
+        sourceText.includes(q) ||
+        modeText.includes(q);
       const matchesCategory =
         selectedCategory === 'All' || item.category === selectedCategory;
       return matchesSearch && matchesCategory;
