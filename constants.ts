@@ -134,7 +134,7 @@ const normalizeYoumind = (item: YoumindItem): PromptItem => ({
   author: 'YouMind 社区',
   link: '',
   mode: 'generate',
-  category: item.category || '其他',
+  category: classifyPicoCategory(item.title),
   source: SOURCE_YOUMIND,
 });
 
