@@ -45,6 +45,11 @@ type PicoTrexItem = {
   category?: string;
 };
 
+const cleanUrl = (url: string): string => {
+  const parts = url.split('|')[0].split('<')[0].split('"')[0];
+  return parts.trim();
+};
+
 const classifyPicoCategory = (title: string): string => {
   const lower = title.toLowerCase();
   const has = (keywords: string[]) => keywords.some((k) => lower.includes(k.toLowerCase()));
@@ -99,7 +104,7 @@ const normalizeJimmy = (item: JimmyItem): PromptItem => ({
 
 const normalizePicoTrex = (item: PicoTrexItem): PromptItem => ({
   title: item.title,
-  preview: item.imageUrl,
+  preview: cleanUrl(item.imageUrl),
   prompt: item.prompt,
   author: 'PicoTrex 社区',
   link: '',
