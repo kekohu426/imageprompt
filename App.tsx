@@ -114,12 +114,13 @@ const App: React.FC = () => {
                   <p className="text-[11px] text-slate-400">由公众号「娇姐 话AI圈」整理 · 精选开源优秀提示词，快速启发创意</p>
                 </div>
               </div>
-              <div className="text-[11px] text-slate-500 flex flex-wrap items-center gap-3">
-                <span className="font-semibold text-slate-300 text-sm">数据来源 · 精选 3 个开源项目</span>
-                <a className="hover:text-yellow-400 underline" href="https://github.com/glidea/banana-prompt-quicker" target="_blank" rel="noreferrer">glidea/banana-prompt-quicker</a>
-                <a className="hover:text-yellow-400 underline" href="https://github.com/JimmyLv/awesome-nano-banana" target="_blank" rel="noreferrer">JimmyLv/awesome-nano-banana</a>
-                <a className="hover:text-yellow-400 underline" href="https://github.com/PicoTrex/Awesome-Nano-Banana-images" target="_blank" rel="noreferrer">PicoTrex/Awesome-Nano-Banana-images</a>
-              </div>
+            <div className="text-[11px] text-slate-500 flex flex-wrap items-center gap-3">
+              <span className="font-semibold text-slate-300 text-sm">数据来源 · 精选 4 个开源项目</span>
+              <a className="hover:text-yellow-400 underline" href="https://github.com/glidea/banana-prompt-quicker" target="_blank" rel="noreferrer">glidea/banana-prompt-quicker</a>
+              <a className="hover:text-yellow-400 underline" href="https://github.com/JimmyLv/awesome-nano-banana" target="_blank" rel="noreferrer">JimmyLv/awesome-nano-banana</a>
+              <a className="hover:text-yellow-400 underline" href="https://github.com/PicoTrex/Awesome-Nano-Banana-images" target="_blank" rel="noreferrer">PicoTrex/Awesome-Nano-Banana-images</a>
+              <a className="hover:text-yellow-400 underline" href="https://github.com/YouMind-OpenLab/awesome-gemini-3-prompts" target="_blank" rel="noreferrer">YouMind-OpenLab/awesome-gemini-3-prompts</a>
+            </div>
             </div>
             <div className="flex flex-col items-center gap-1 text-xs text-slate-400">
               <div className="w-24 h-24 border border-slate-800 rounded bg-slate-900 overflow-hidden flex items-center justify-center">
@@ -171,18 +172,23 @@ const App: React.FC = () => {
 
         <main className="mt-6">
           <div className="masonry-grid">
-            {filteredPrompts.map((item, index) => (
-              <div
-                key={`${item.title}-${index}`}
-                onClick={() => setSelectedPrompt(item)}
-                className="break-inside-avoid mb-6 bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-all cursor-pointer group hover:shadow-xl hover:shadow-yellow-500/5 hover:-translate-y-1 relative"
-              >
-                <div className="relative aspect-auto bg-slate-800">
+              {filteredPrompts.map((item, index) => (
+                <div
+                  key={`${item.title}-${index}`}
+                  onClick={() => setSelectedPrompt(item)}
+                  onMouseEnter={() => setSelectedPrompt(item)}
+                  className="break-inside-avoid mb-6 bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-all cursor-pointer group hover:shadow-xl hover:shadow-yellow-500/5 hover:-translate-y-1 relative"
+                >
+                <div className="relative aspect-auto bg-slate-900 border-2 border-slate-700 rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
                   <ImageWithFallback
                     src={item.preview}
                     alt={item.title}
                     className="w-full h-auto object-cover min-h-[150px]"
                   />
+
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-2 bg-slate-950/80 backdrop-blur border border-slate-700 rounded-full text-sm font-semibold text-slate-100 shadow">
+                    {item.title}
+                  </div>
 
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                     <div className="w-full">
@@ -203,12 +209,7 @@ const App: React.FC = () => {
                     </span>
                   </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="font-semibold text-slate-100 mb-1 line-clamp-1">
-                    {item.title}
-                  </h3>
-                  <div className="flex items-center justify-between mt-4" />
-                </div>
+                <div className="p-3" />
               </div>
             ))}
           </div>
