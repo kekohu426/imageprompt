@@ -1,6 +1,7 @@
 import zangshifuData from './prompts/zangshifu.json';
 import picoTrexData from './prompts/PicoTrex.json';
 import jimmyCases from './prompts/Jimmy.js';
+import youmindData from './prompts/youmind.json';
 import { PromptItem } from './types';
 
 const SOURCE_GLIDEA = {
@@ -16,6 +17,11 @@ const SOURCE_JIMMYLV = {
 const SOURCE_PICOTREX = {
   name: 'PicoTrex/Awesome-Nano-Banana-images',
   url: 'https://github.com/PicoTrex/Awesome-Nano-Banana-images',
+};
+
+const SOURCE_YOUMIND = {
+  name: 'YouMind-OpenLab/awesome-gemini-3-prompts',
+  url: 'https://github.com/YouMind-OpenLab/awesome-gemini-3-prompts',
 };
 
 type ZangshifuItem = {
@@ -38,6 +44,14 @@ type JimmyItem = {
 };
 
 type PicoTrexItem = {
+  id: number;
+  title: string;
+  prompt: string;
+  imageUrl: string;
+  category?: string;
+};
+
+type YoumindItem = {
   id: number;
   title: string;
   prompt: string;
@@ -113,6 +127,17 @@ const normalizePicoTrex = (item: PicoTrexItem): PromptItem => ({
   source: SOURCE_PICOTREX,
 });
 
+const normalizeYoumind = (item: YoumindItem): PromptItem => ({
+  title: item.title,
+  preview: cleanUrl(item.imageUrl),
+  prompt: item.prompt,
+  author: 'YouMind 社区',
+  link: '',
+  mode: 'generate',
+  category: item.category || '其他',
+  source: SOURCE_YOUMIND,
+});
+
 const mergeAndDedupe = (...groups: PromptItem[][]): PromptItem[] => {
   const seen = new Set<string>();
   const result: PromptItem[] = [];
@@ -131,4 +156,5 @@ export const PROMPTS: PromptItem[] = mergeAndDedupe(
   (zangshifuData as ZangshifuItem[]).map(normalizeZangshifu),
   (jimmyCases as JimmyItem[]).map(normalizeJimmy),
   (picoTrexData as PicoTrexItem[]).map(normalizePicoTrex),
+  (youmindData as YoumindItem[]).map(normalizeYoumind),
 );
